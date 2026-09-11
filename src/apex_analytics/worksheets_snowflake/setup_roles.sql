@@ -1,0 +1,21 @@
+USE ROLE USERADMIN;
+
+
+CREATE ROLE IF NOT EXISTS apex_dlt_role;
+
+USE ROLE SECURITYADMIN;
+
+GRANT ROLE apex_dlt_role TO USER extract_loader;
+
+GRANT USAGE ON WAREHOUSE dev_wh TO ROLE apex_dlt_role;
+GRANT USAGE ON DATABASE f1_db TO ROLE apex_dlt_role;
+GRANT USAGE ON SCHEMA f1_db.staging TO ROLE apex_dlt_role;
+GRANT CREATE TABLE ON SCHEMA f1_db.staging TO ROLE apex_dlt_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA f1_db.staging TO ROLE apex_dlt_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON FUTURE TABLES IN SCHEMA f1_db.staging TO ROLE apex_dlt_role;
+
+SHOW GRANTS ON SCHEMA f1_db.staging;
+SHOW FUTURE GRANTS IN SCHEMA f1_db.staging;
+SHOW GRANTS TO ROLE apex_dlt_role;
+SHOW GRANTS TO USER extract_loader;
