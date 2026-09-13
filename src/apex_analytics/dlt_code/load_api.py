@@ -14,9 +14,9 @@ def get_races():
 @dlt.resource(write_disposition="replace")
 def view_races():
     json_response = get_races()
-    total = json_response['MRData']['RaceTable']['Races']
-    print(f"\nRaces = {total}")
-    yield total
+    races = json_response['MRData']['RaceTable']['Races']
+    for race in races:
+        yield race
 
 def run_pipeline(view_races): 
     pipeline = dlt.pipeline(
