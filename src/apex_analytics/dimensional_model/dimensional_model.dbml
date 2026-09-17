@@ -1,0 +1,43 @@
+Table fct_results {
+  race_id int [ref: > dim_race.race_id]
+  driver_id int
+  constructor_id int
+  season int
+  position int
+  points int
+  laps int
+  status varchar
+  time varchar
+
+  indexes {
+    (race_id, driver_id) [PK]
+  }
+}
+
+Table dim_race {
+  race_id int [primary key]
+  season int 
+  round int
+  circuit_id int 
+  date datetime
+  raceName varchar
+}
+
+Table dim_circuit {
+  circuit_id int [primary key, ref: < dim_race.circuit_id]
+  location varchar
+  name varchar
+}
+
+Table dim_driver {
+  driver_id int [primary key, ref: < fct_results.driver_id]
+  name varchar
+  nationality str
+  date_of_birth datetime
+}
+
+Table dim_constructor {
+  constructor_id int [primary key, ref: < fct_results.constructor_id]
+  name varchar
+  nationality varchar
+}
